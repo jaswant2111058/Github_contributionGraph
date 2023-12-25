@@ -1,0 +1,40 @@
+# .gitignore
+
+# Compiled Python files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Local development settings
+*.env
+
+# Database
+*.sqlite3
+
+# Static files
+/static/
+
+# Media files
+/media/
+
+# Django secret key
+*.secret_key
+
+# IDE-specific files and directories
+.vscode/
+.idea/
+*.pycharm/
+
+# Log files
+*.log
+
+# Cache
+__pycache__/
+
+# Compiled Python files
+*.pyc
+
+# Test database
+*.db
+/venv

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Contribution Graph</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        #container {
+            text-align: center;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        #usernameInput {
+            padding: 10px;
+            margin: 10px;
+            width: 200px;
+            font-size: 16px;
+        }
+
+        #graphContainer {
+            margin-top: 20px;
+        }
+
+        canvas {
+            display: block;
+            margin: auto;
+            max-width: 100%;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin-top: 10px;
+            font-size: 16px;
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>GitHub Contribution Graph</h1>
+       
+        <input type="text" id="usernameInput" placeholder="Enter GitHub Username" required>
+        <button onclick ="submit()"> Show Graph </button>  
+        
+    </div>
+    <script>
+
+        function submit (){
+            const value = document.getElementById("usernameInput").value
+
+            if(!value){
+                alert("Username Is Required")
+            }
+            else{
+                window.location.href ="{{current_url}}"+"graph/load/"+"?username="+`${value}`;
+            }
+        }
+
+
+    </script>
+
+</body>
+</html>

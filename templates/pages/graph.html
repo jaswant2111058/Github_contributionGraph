@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Contribution Graph</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        h3{
+            text-align:center
+        }
+    </style>
+</head>
+<body>
+    <h3 >{{username}}</h3>
+    <canvas id="contribution-chart" width="800" height="400"></canvas>
+    <script>
+        // Process the contribution graph data
+    const contributionData = {{ contribution_data|safe }}
+    
+    console.log(contributionData) 
+
+      
+
+    // Prepare data for Chart.js
+   const labels = contributionData.weeks.map((week, index) => `Week ${index + 1}`);
+        const dataPoints = contributionData.weeks.map(week =>
+            week.contributionDays.reduce((sum, day) => sum + day.contributionCount, 0)
+        );
+
+        // Render the contribution graph using Chart.js
+        const ctx = document.getElementById('contribution-chart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Contributions per Week',
+                    data: dataPoints,
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1,
+                    fill: false,
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        type: 'category',
+                        title: {
+                            display: true,
+                            text: 'Weeks'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Contributions'
+                        }
+                    }
+                }
+            }
+        });
+
+
+    </script>
+</body>
+</html>
