@@ -80,9 +80,20 @@
                 alert("Username Is Required")
             }
             else{
-                window.location.href ="{{current_url}}"+"graph/load/"+"?username="+`${value}`;
+                const username =  extractUsernameFromGitHubLink(value)
+                window.location.href ="{{current_url}}"+"graph/load/"+"?username="+`${username}`;
             }
         }
+        function extractUsernameFromGitHubLink(link) {
+            // Regular expression to match GitHub profile and repository URLs
+            const githubRegex = /^(?:https?:\/\/)?(?:www\.)?github\.com\/([^\/]+)\/?([^\/]+)?/i;
+            
+            // Extracting username and repository from the link using the regular expression
+            const match = link.match(githubRegex);
+          
+            // If there is a match, return the username, otherwise return null
+            return match ? match[1] : null;
+          }
 
 
     </script>
