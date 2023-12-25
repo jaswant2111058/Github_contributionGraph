@@ -1,0 +1,7 @@
+services:
+  - name: web
+    type: web
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: "admin.settings"
+    startCommand: gunicorn admin.wsgi:application -b 0.0.0.0:$PORT
