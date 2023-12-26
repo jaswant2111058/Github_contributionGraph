@@ -9,7 +9,7 @@ def home(request):
 
 def github_contributions(request):
     try:
-        github_token = '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'
+        github_token = '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'
         username = request.GET.get('username')
 
         if not username:
