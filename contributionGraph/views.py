@@ -100,17 +100,30 @@ def github_data(request):
             }
             issues_details.append(issue_detail)
         
-        print(issues_details)
-
-        #Writing to CSV should be outside the loop to avoid overwriting in each iteration
-        write_issues_to_csv(issues_details)
         
-        # if len(all_issues_details['comments']):
-        #     write_comment_to_csv(all_issues_details['comments'])
-        # if len(all_issues_details['modified_details']):
-        #     write_modified_file_to_csv(all_issues_details['modified_details'])
-        # if len(all_issues_details['labels']):
-        #     write_label_to_csv(all_issues_details['labels'])
+        
+        comment_details = []
+        for comment in all_issues_details:
+            comment_details = comment_details+comment['comments']
+            
+            
+            
+             
+        modified_file_detail = [] 
+        for file_detail in all_issues_details:
+            modified_file_detail =modified_file_detail+ (file_detail['modified_details'])
+            
+        
+        
+        labels_detail =[]
+        for label in all_issues_details:
+            labels_detail = labels_detail+(label['labels'])
+            
+        
+        write_issues_to_csv(issues_details,owner, repo, perpage, pageno)
+        write_comment_to_csv(comment_details,owner, repo, perpage, pageno)
+        write_modified_file_to_csv(modified_file_detail,owner, repo, perpage, pageno)
+        write_label_to_csv(labels_detail,owner, repo, perpage, pageno)
 
         return JsonResponse(all_issues_details, safe=False, status=200)
 
