@@ -5,5 +5,4 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('contributionGraph.urls')),
-    path('graph/', include('contributionGraph.urls')),
 ]

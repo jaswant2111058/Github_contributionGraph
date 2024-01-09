@@ -24,13 +24,20 @@
             border-radius: 8px;
         }
 
+        #container > div {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
         h1 {
             color: #333;
         }
 
-        #usernameInput {
+        #usernameInput, #pageNo, #perPage, #githubToken {
+            display: block;
             padding: 10px;
-            margin: 10px;
+            margin: 10px auto;
             width: 200px;
             font-size: 16px;
         }
@@ -65,38 +72,47 @@
 </head>
 <body>
     <div id="container">
-        <h1>GitHub Contribution Graph</h1>
-       
-        <input type="text" id="usernameInput" placeholder="Enter GitHub Username" required>
-        <button onclick ="submit()"> Show Graph </button>  
-        
+        <h1>GitHub Data and Graph</h1>
+
+        <input type="text" id="usernameInput" placeholder="Enter GitHub Repo" required>
+        <input type="text" id="githubToken" placeholder="Enter GitHub Token" required>
+        <input type="number" id="pageNo" placeholder="Page NO." required>
+        <input type="number" id="perPage" placeholder="No. of per Page" required>
+        <div>
+            <button onclick="ShowGraph()">Show Graph</button>
+            <button onclick="ShowData()">Show Data</button>
+        </div>
     </div>
     <script>
+        function ShowGraph() {
+            const value = document.getElementById("usernameInput").value;
 
-        function submit (){
-            const value = document.getElementById("usernameInput").value
-
-            if(!value){
-                alert("Username Is Required")
-            }
-            else{
-                const username =  extractUsernameFromGitHubLink(value)
-                window.location.href ="{{current_url}}"+"graph/load/"+"?username="+`${username}`;
+            if (!value) {
+                alert("Repo Is Required");
+            } else {
+                const username = extractUsernameFromGitHubLink(value);
+                window.location.href = "{{ current_url }}" + "load/" + "?username=" + `${username}`;
             }
         }
+
         function extractUsernameFromGitHubLink(link) {
-            // Regular expression to match GitHub profile and repository URLs
             const githubRegex = /^(?:https?:\/\/)?(?:www\.)?github\.com\/([^\/]+)\/?([^\/]+)?/i;
-            
-            // Extracting username and repository from the link using the regular expression
             const match = link.match(githubRegex);
-          
-            // If there is a match, return the username, otherwise return null
             return match ? match[1] : null;
-          }
+        }
 
+        function ShowData() {
+            const value = document.getElementById("usernameInput").value;
+            const perpage = document.getElementById("perPage").value;
+            const pageno = document.getElementById("pageNo").value;
+            const githubToken = document.getElementById("githubToken").value;
 
+            if (!value || !perpage || !pageno || !githubToken) {
+                alert("All Fields Are Required");
+            } else {
+                window.location.href = "{{ current_url }}" + "data/" +`?repo_url=${value}&token=${githubToken}&perpage=${perpage}&pageno=${pageno}`;
+            }
+        }
     </script>
-
 </body>
 </html>
